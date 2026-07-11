@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: 0
+  # Keep in step with the soroban-sdk version in Cargo.toml.
+  STELLAR_CLI_VERSION: 27.0.0
+
+jobs:
+  contracts:
+    name: Contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # rust-toolchain.toml pins the version and the wasm32v1-none target, so
+      # this installs exactly what a developer has locally.
+      - name: Install Rust
+        run: rustup show
+
+      - uses: Swatinem/rust-cache@v2
+
+      # The released binary, not `cargo install --locked stellar-cli`: that builds
+      # the CLI from source and takes minutes we would pay on every run.
+      - name: Install Stellar CLI
+        run: |
+          curl -sSfL "https://github.com/stellar/stellar-cli/releases/download/v${STELLAR_CLI_VERSION}/stellar-cli-${STELLAR_CLI_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin stellar
+          stellar --version
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+      - name: Build wasm
+        run: stellar contract build
+
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+      # Must come after `stellar contract build`: the factory's tests deploy the
+      # *compiled* campaign wasm, exactly as the factory does on-chain.
+      - name: Test
+        run: cargo test --verbose
+
+      - name: Upload wasm
+        uses: actions/upload-artifact@v4
+        with:
+          name: contracts-wasm
+          path: target/wasm32v1-none/release/*.wasm
+          if-no-files-found: error
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # The `*.live.test.ts` smoke tests are excluded by config: they hit real
+      # testnet RPC, and CI should not go red because someone else's node had a
+      # bad minute. Run them after a deploy with `npm run test:live`.
+      - name: Test
+        run: npm run test:run
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+          if-no-files-found: error

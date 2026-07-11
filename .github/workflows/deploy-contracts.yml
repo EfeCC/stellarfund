@@ -1,0 +1,96 @@
+name: Deploy contracts
+
+# Deliberately manual. Deploying on every push to main would strand the previous
+# factory — and every campaign in its registry — with nobody pointing at it.
+on:
+  workflow_dispatch:
+    inputs:
+      network:
+        description: Network to deploy to
+        type: choice
+        options: [testnet]
+        default: testnet
+
+concurrency:
+  group: deploy-contracts
+  cancel-in-progress: false
+
+env:
+  STELLAR_CLI_VERSION: 27.0.0
+
+jobs:
+  deploy:
+    name: Deploy to ${{ inputs.network }}
+    runs-on: ubuntu-latest
+    # Put the deployer key behind a protected environment so a deploy needs a
+    # human to approve it, not just push access.
+    environment: ${{ inputs.network }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        run: rustup show
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Stellar CLI
+        run: |
+          curl -sSfL "https://github.com/stellar/stellar-cli/releases/download/v${STELLAR_CLI_VERSION}/stellar-cli-${STELLAR_CLI_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin stellar
+          stellar --version
+
+      # Refuse to ship code that does not pass its own tests.
+      - name: Test
+        run: |
+          stellar contract build
+          cargo test
+
+      - name: Configure deployer identity
+        env:
+          STELLAR_SECRET_KEY: ${{ secrets.STELLAR_SECRET_KEY }}
+        run: |
+          if [ -z "$STELLAR_SECRET_KEY" ]; then
+            echo "::error::STELLAR_SECRET_KEY is not set on the '${{ inputs.network }}' environment"
+            exit 1
+          fi
+
+          # Piped, not passed as an argument: an argument would put the secret in
+          # the process table for anything on the runner to read.
+          printf '%s' "$STELLAR_SECRET_KEY" | stellar keys add deployer --secret-key
+          echo "Deploying as $(stellar keys address deployer)"
+
+      - name: Deploy
+        env:
+          NETWORK: ${{ inputs.network }}
+          SOURCE: deployer
+        run: ./scripts/deploy.sh
+
+      - name: Regenerate contract bindings
+        run: ./scripts/bindings.sh
+
+      - name: Show what landed
+        run: cat frontend/src/config/deployment.json
+
+      # The addresses are what the frontend reads, so the deploy is not finished
+      # until they are committed. Vercel picks the change up and ships a
+      # frontend pointing at the new factory.
+      - name: Commit the new deployment
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- frontend/src/config/deployment.json frontend/src/contracts; then
+            echo "Nothing changed."
+            exit 0
+          fi
+
+          git add frontend/src/config/deployment.json frontend/src/contracts
+          git commit -m "chore(deploy): ${{ inputs.network }} $(date -u +%Y-%m-%d)
+
+          Deployed by ${{ github.actor }} via the deploy-contracts workflow.
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          git push
