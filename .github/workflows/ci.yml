@@ -22,7 +22,7 @@ jobs:
     name: Contracts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Pinned here rather than in a rust-toolchain.toml, which would also pin the
       # *host* triple — and force a Windows developer onto the MSVC toolchain when
@@ -59,7 +59,7 @@ jobs:
         run: cargo test --verbose
 
       - name: Upload wasm
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: contracts-wasm
           path: target/wasm32v1-none/release/*.wasm
@@ -72,9 +72,9 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -99,7 +99,7 @@ jobs:
         run: npm run build
 
       - name: Upload build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: frontend-dist
           path: frontend/dist
