@@ -13,7 +13,7 @@ Pledges sit in escrow until the goal is met. If it isn't, every backer takes the
 
 **[Live demo](#) · [Demo video](#) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**
 
-<!-- TODO(you): fill in the two links above once Vercel is connected and the video is recorded. -->
+<!-- TODO: replace the two `#` links above — the Vercel URL, and the demo video. -->
 
 ![StellarFund](docs/screenshots/desktop-home.png)
 
@@ -131,9 +131,18 @@ network, not just in tests.
 
 ## Screenshots
 
-| Mobile — campaign | Mobile — nav | Desktop — create |
+Captured from the app running against the live testnet deployment above — the numbers in them are
+real on-chain state, not mock data.
+
+### Mobile
+
+| Campaign | Navigation | Create |
 |---|---|---|
-| <img src="docs/screenshots/mobile-campaign.png" width="240"> | <img src="docs/screenshots/mobile-menu.png" width="240"> | <img src="docs/screenshots/desktop-create.png" width="240"> |
+| <img src="docs/screenshots/mobile-campaign.png" width="230"> | <img src="docs/screenshots/mobile-menu.png" width="230"> | <img src="docs/screenshots/mobile-create.png" width="230"> |
+
+### CI
+
+![CI](docs/screenshots/ci-run.png)
 
 ## Running it
 
@@ -244,6 +253,29 @@ frontend/
   src/pages/        explore · campaign · create
 scripts/        deploy.sh · bindings.sh
 ```
+
+## Submission checklist
+
+| Requirement | Where |
+|---|---|
+| Public GitHub repository | [EfeCC/stellarfund](https://github.com/EfeCC/stellarfund) |
+| README with complete documentation | this file |
+| 10+ meaningful commits | [16 commits](https://github.com/EfeCC/stellarfund/commits/main) |
+| Live demo link | *(Vercel — see the header)* |
+| Contract deployment address | [`CDHZUBWT…JT3Z57`](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57) |
+| Transaction hash for contract interaction | [`83891dc9…b3b2a4`](https://stellar.expert/explorer/testnet/tx/83891dc91bc552c2b86758e4374a3e9e7b19eb30d43d3a5bc25c74b9abd3b2a4) |
+| Screenshot — mobile responsive UI | [above](#mobile) |
+| Screenshot — CI/CD pipeline running | [above](#ci) |
+| Screenshot — 3+ passing tests | [`docs/test-output.txt`](docs/test-output.txt) (84) · [CI run](https://github.com/EfeCC/stellarfund/actions) |
+| Demo video (1–2 min) | *(see the header; storyboard in [docs/DEMO.md](docs/DEMO.md))* |
+| Advanced smart contract development | [`contracts/`](contracts) — derived state machine, typed errors, TTL management, paged registry, admin upgrade path |
+| Inter-contract communication | three distinct paths, [above](#architecture) |
+| Event streaming & real-time updates | [factory activity hub](#-campaign--factory--the-activity-hub) → [cursor poll](frontend/src/hooks/useActivity.tsx) |
+| CI/CD pipeline | [`.github/workflows/`](.github/workflows) |
+| Contract deployment workflow | [`scripts/deploy.sh`](scripts/deploy.sh) + [manual deploy workflow](.github/workflows/deploy-contracts.yml) |
+| Mobile responsive frontend | mobile-first Tailwind |
+| Error handling & loading states | [`lib/errors.ts`](frontend/src/lib/errors.ts), [`ErrorBoundary`](frontend/src/components/ErrorBoundary.tsx), skeletons |
+| Tests for contracts and frontend | 84 |
 
 ## License
 
