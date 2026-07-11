@@ -1,6 +1,10 @@
 # Rust's output directory
 target
 
+# soroban-sdk rewrites these on every `cargo test`. Committing them would put a
+# few dozen churning JSON files in the diff of any change that touches a contract.
+test_snapshots/
+
 # Local settings
 .soroban
 .stellar
