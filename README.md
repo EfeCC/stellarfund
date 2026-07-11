@@ -15,6 +15,9 @@ Pledges sit in escrow until the goal is met. If it isn't, every backer takes the
 
 <!-- TODO: replace the `#` above with the demo video link. -->
 
+*Reviewing this? Every requirement maps to a file or a link in the
+**[submission checklist](#submission-checklist)** at the bottom.*
+
 ![StellarFund](docs/screenshots/desktop-home.png)
 
 </div>
