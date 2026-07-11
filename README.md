@@ -144,6 +144,10 @@ real on-chain state, not mock data.
 
 ![CI](docs/screenshots/ci-run.png)
 
+### Tests
+
+![Test output](docs/screenshots/test-output.png)
+
 ## Running it
 
 **Prerequisites:** Rust 1.97+ with the `wasm32v1-none` target, [Stellar CLI 27](https://github.com/stellar/stellar-cli), Node 20+, and
@@ -266,7 +270,7 @@ scripts/        deploy.sh · bindings.sh
 | Transaction hash for contract interaction | [`83891dc9…b3b2a4`](https://stellar.expert/explorer/testnet/tx/83891dc91bc552c2b86758e4374a3e9e7b19eb30d43d3a5bc25c74b9abd3b2a4) |
 | Screenshot — mobile responsive UI | [above](#mobile) |
 | Screenshot — CI/CD pipeline running | [above](#ci) |
-| Screenshot — 3+ passing tests | [`docs/test-output.txt`](docs/test-output.txt) (84) · [CI run](https://github.com/EfeCC/stellarfund/actions) |
+| Screenshot — 3+ passing tests | [above](#tests) — 84, all named · raw output in [`docs/test-output.txt`](docs/test-output.txt) |
 | Demo video (1–2 min) | *(see the header)* |
 | Advanced smart contract development | [`contracts/`](contracts) — derived state machine, typed errors, TTL management, paged registry, admin upgrade path |
 | Inter-contract communication | three distinct paths, [above](#architecture) |
