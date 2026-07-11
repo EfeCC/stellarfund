@@ -92,7 +92,7 @@
               "function_name": "set_campaign_wasm",
               "args": [
                 {
-                  "bytes": "6ec71bfff4f4ae24094af1be6304fb761a4f5df430e355a906b41bda1e2328ab"
+                  "bytes": "50a348bd9336ddcbf2f920fdef74d1d9927172011674972212fd037384348ab2"
                 }
               ]
             }
@@ -317,7 +317,7 @@
                         ]
                       },
                       "val": {
-                        "bytes": "6ec71bfff4f4ae24094af1be6304fb761a4f5df430e355a906b41bda1e2328ab"
+                        "bytes": "50a348bd9336ddcbf2f920fdef74d1d9927172011674972212fd037384348ab2"
                       }
                     }
                   ]
