@@ -11,9 +11,9 @@ Pledges sit in escrow until the goal is met. If it isn't, every backer takes the
 [![Tests](https://img.shields.io/badge/tests-84%20passing-3dd68c)](docs/test-output.txt)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-**[Live demo](#) · [Demo video](#) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**
+**[Live demo](https://stellarfund-blush.vercel.app) · [Demo video](#) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**
 
-<!-- TODO: replace the two `#` links above — the Vercel URL, and the demo video. -->
+<!-- TODO: replace the `#` above with the demo video link. -->
 
 ![StellarFund](docs/screenshots/desktop-home.png)
 
@@ -261,13 +261,13 @@ scripts/        deploy.sh · bindings.sh
 | Public GitHub repository | [EfeCC/stellarfund](https://github.com/EfeCC/stellarfund) |
 | README with complete documentation | this file |
 | 10+ meaningful commits | [commit history](https://github.com/EfeCC/stellarfund/commits/main) |
-| Live demo link | *(Vercel — see the header)* |
+| Live demo link | [stellarfund-blush.vercel.app](https://stellarfund-blush.vercel.app) |
 | Contract deployment address | [`CDHZUBWT…JT3Z57`](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57) |
 | Transaction hash for contract interaction | [`83891dc9…b3b2a4`](https://stellar.expert/explorer/testnet/tx/83891dc91bc552c2b86758e4374a3e9e7b19eb30d43d3a5bc25c74b9abd3b2a4) |
 | Screenshot — mobile responsive UI | [above](#mobile) |
 | Screenshot — CI/CD pipeline running | [above](#ci) |
 | Screenshot — 3+ passing tests | [`docs/test-output.txt`](docs/test-output.txt) (84) · [CI run](https://github.com/EfeCC/stellarfund/actions) |
-| Demo video (1–2 min) | *(see the header; storyboard in [docs/DEMO.md](docs/DEMO.md))* |
+| Demo video (1–2 min) | *(see the header)* |
 | Advanced smart contract development | [`contracts/`](contracts) — derived state machine, typed errors, TTL management, paged registry, admin upgrade path |
 | Inter-contract communication | three distinct paths, [above](#architecture) |
 | Event streaming & real-time updates | [factory activity hub](#-campaign--factory--the-activity-hub) → [cursor poll](frontend/src/hooks/useActivity.tsx) |
