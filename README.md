@@ -11,9 +11,8 @@ Pledges sit in escrow until the goal is met. If it isn't, every backer takes the
 [![Tests](https://img.shields.io/badge/tests-84%20passing-3dd68c)](docs/test-output.txt)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-**[Live demo](https://stellarfund-blush.vercel.app) · [Demo video](#) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**
+**[Live demo](https://stellarfund-blush.vercel.app) · [Demo video](https://youtu.be/Ldd2SLI9lQ0) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**
 
-<!-- TODO: replace the `#` above with the demo video link. -->
 
 *Reviewing this? Every requirement maps to a file or a link in the
 **[submission checklist](#submission-checklist)** at the bottom.*
@@ -274,7 +273,7 @@ scripts/        deploy.sh · bindings.sh
 | Screenshot — mobile responsive UI | [above](#mobile) |
 | Screenshot — CI/CD pipeline running | [above](#ci) |
 | Screenshot — 3+ passing tests | [above](#tests) — 84, all named · raw output in [`docs/test-output.txt`](docs/test-output.txt) |
-| Demo video (1–2 min) | *(see the header)* |
+| Demo video (1–2 min) | [youtu.be/Ldd2SLI9lQ0](https://youtu.be/Ldd2SLI9lQ0) |
 | Advanced smart contract development | [`contracts/`](contracts) — derived state machine, typed errors, TTL management, paged registry, admin upgrade path |
 | Inter-contract communication | three distinct paths, [above](#architecture) |
 | Event streaming & real-time updates | [factory activity hub](#-campaign--factory--the-activity-hub) → [cursor poll](frontend/src/hooks/useActivity.tsx) |
