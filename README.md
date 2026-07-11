@@ -8,7 +8,7 @@ Pledges sit in escrow until the goal is met. If it isn't, every backer takes the
 
 [![CI](../../actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 [![Network](https://img.shields.io/badge/network-testnet-7c5cff)](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)
-[![Tests](https://img.shields.io/badge/tests-84%20passing-3dd68c)](docs/test-output.txt)
+[![Tests](https://img.shields.io/badge/tests-85%20passing-3dd68c)](docs/test-output.txt)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 **[Live demo](https://stellarfund-blush.vercel.app) · [Demo video](https://youtu.be/Ldd2SLI9lQ0) · [Factory contract](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57)**

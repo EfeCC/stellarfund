@@ -30,6 +30,8 @@ const ActivityContext = createContext<ActivityContextValue | null>(null)
 
 const POLL_INTERVAL_MS = 5_000
 const MAX_EVENTS = 60
+/** How many event ids to remember before pruning back down to MAX_EVENTS. */
+const MAX_HANDLED = 500
 
 /**
  * Streams the platform's activity from the factory contract.
@@ -63,6 +65,15 @@ export function ActivityProvider({
     // dozen toasts at once for things that happened before the user arrived.
     let seeded = false
 
+    // Every event id we have already handled.
+    //
+    // The cursor should mean an event never arrives twice, but "should" is doing
+    // a lot of work there: a retried request or an overlapping page would
+    // otherwise toast the same contribution at the user again. Deduplicating here
+    // rather than inside `setEvents` is what keeps the feed and the toasts working
+    // from the same set — they used to disagree, and the toasts repeated.
+    const handled = new Set<string>()
+
     const tick = async () => {
       try {
         const page = await pollActivity(cursor)
@@ -71,18 +82,21 @@ export function ActivityProvider({
         cursor = page.cursor || cursor
         setStatus('live')
 
-        if (page.activity.length > 0) {
-          // RPC returns oldest first; the feed reads newest first.
-          const incoming = [...page.activity].reverse()
+        // RPC returns oldest first; the feed reads newest first.
+        const fresh = [...page.activity].reverse().filter((event) => !handled.has(event.id))
 
-          setEvents((current) => {
-            const seen = new Set(current.map((event) => event.id))
-            const fresh = incoming.filter((event) => !seen.has(event.id))
-            if (fresh.length === 0) return current
-            return [...fresh, ...current].slice(0, MAX_EVENTS)
-          })
+        if (fresh.length > 0) {
+          fresh.forEach((event) => handled.add(event.id))
+          // The feed only keeps MAX_EVENTS, so this set would otherwise be the one
+          // thing in a long session that grows without bound.
+          if (handled.size > MAX_HANDLED) {
+            const recent = [...handled].slice(-MAX_EVENTS)
+            handled.clear()
+            recent.forEach((id) => handled.add(id))
+          }
 
-          if (seeded) incoming.forEach(announce)
+          setEvents((current) => [...fresh, ...current].slice(0, MAX_EVENTS))
+          if (seeded) fresh.forEach(announce)
           setRevision((value) => value + 1)
         }
 

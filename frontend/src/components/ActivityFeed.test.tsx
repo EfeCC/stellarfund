@@ -92,13 +92,37 @@ describe('ActivityFeed', () => {
   it('toasts activity that arrives after the feed is live', async () => {
     pollActivity
       .mockResolvedValueOnce(page([event({ id: 'seed' })]))
-      .mockResolvedValue(page([event({ id: 'fresh', amount: 1_000_000_000n })], 'cursor-2'))
+      .mockResolvedValueOnce(page([event({ id: 'fresh', amount: 1_000_000_000n })], 'cursor-2'))
+      .mockResolvedValue(page([], 'cursor-3'))
 
     renderFeed()
     await screen.findByText('25 XLM')
 
     expect(await screen.findByText('New contribution')).toBeInTheDocument()
     expect(await screen.findByText(/pledged 100 XLM/)).toBeInTheDocument()
+  })
+
+  /**
+   * The cursor should mean an event never arrives twice — but a retry or an
+   * overlapping page would, and telling someone twice that the same contribution
+   * landed is worse than not telling them at all. Deduplicating the *toasts*, not
+   * just the feed rows, is what this pins: the two used to work from different
+   * lists, and only the rows were deduplicated.
+   */
+  it('toasts an event once even if the poll keeps returning it', async () => {
+    pollActivity
+      .mockResolvedValueOnce(page([event({ id: 'seed' })]))
+      .mockResolvedValue(page([event({ id: 'repeated', amount: 1_000_000_000n })], 'cursor-2'))
+
+    renderFeed()
+    await screen.findByText('25 XLM')
+    await screen.findByText('New contribution')
+
+    // Let several more polls return the very same event.
+    await new Promise((resolve) => setTimeout(resolve, 80))
+
+    expect(screen.getAllByText('New contribution')).toHaveLength(1)
+    expect(screen.getAllByText(/pledged 100 XLM/)).toHaveLength(1)
   })
 
   it('shows each event once, however often the poll returns it', async () => {

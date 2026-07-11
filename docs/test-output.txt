@@ -2,45 +2,45 @@
 
      Running unittests src\lib.rs (target\debug\deps\campaign-cabf4b609d573cbd.exe)
 running 21 tests
-test test::constructor_rejects_a_non_positive_goal - should panic ... ok
 test test::constructor_rejects_a_deadline_in_the_past - should panic ... ok
-test test::contribute_is_rejected_once_the_deadline_has_passed ... ok
-test test::contribute_rejects_a_non_positive_amount ... ok
-test test::contribute_requires_the_contributors_authorisation ... ok
+test test::constructor_rejects_a_non_positive_goal - should panic ... ok
 test test::constructor_seeds_an_active_campaign ... ok
-test test::refund_is_rejected_for_someone_who_never_contributed ... ok
-test test::contribute_escrows_the_tokens_in_the_campaign ... ok
+test test::contribute_requires_the_contributors_authorisation ... ok
+test test::contribute_rejects_a_non_positive_amount ... ok
 test test::refund_is_rejected_on_a_campaign_that_met_its_goal ... ok
+test test::contribute_is_rejected_once_the_deadline_has_passed ... ok
+test test::refund_is_rejected_for_someone_who_never_contributed ... ok
 test test::refund_is_rejected_while_the_campaign_can_still_succeed ... ok
+test test::contribute_escrows_the_tokens_in_the_campaign ... ok
+test test::every_state_change_is_reported_to_the_activity_hub ... ok
 test test::refund_cannot_be_claimed_twice ... ok
 test test::reaching_the_goal_flips_the_status_to_successful ... ok
-test test::every_state_change_is_reported_to_the_activity_hub ... ok
 test test::refund_returns_the_pledge_after_a_failed_campaign ... ok
 test test::the_hub_rejects_activity_forged_by_a_third_party ... ok
-test test::withdraw_cannot_be_replayed ... ok
-test test::the_hub_callback_is_authorised_by_the_calling_contract_alone ... ok
 test test::withdraw_is_rejected_for_anyone_but_the_creator ... ok
+test test::the_hub_callback_is_authorised_by_the_calling_contract_alone ... ok
+test test::withdraw_cannot_be_replayed ... ok
 test test::repeat_contributions_accumulate_without_double_counting_the_contributor ... ok
 test test::withdraw_is_rejected_while_the_goal_is_out_of_reach ... ok
 test test::withdraw_pays_the_creator_once_the_goal_is_met ... ok
-test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
      Running unittests src\lib.rs (target\debug\deps\factory-8453fe0a1075adbc.exe)
 running 14 tests
+test test::create_campaign_rejects_a_non_positive_goal ... ok
+test test::create_campaign_rejects_a_duration_beyond_the_ceiling ... ok
 test test::create_campaign_rejects_a_duration_below_the_floor ... ok
 test test::constructor_stores_the_admin_and_the_campaign_wasm_hash ... ok
 test test::create_campaign_requires_the_creators_authorisation ... ok
-test test::create_campaign_rejects_a_duration_beyond_the_ceiling ... ok
-test test::create_campaign_rejects_a_non_positive_goal ... ok
-test test::set_campaign_wasm_points_future_campaigns_at_the_new_code ... ok
 test test::get_campaigns_rejects_a_page_size_it_cannot_serve ... ok
-test test::create_campaign_deploys_a_campaign_that_is_ready_to_use ... ok
 test test::create_campaign_adds_the_campaign_to_the_registry ... ok
-test test::a_contribution_travels_all_the_way_into_the_factory_feed ... ok
+test test::set_campaign_wasm_points_future_campaigns_at_the_new_code ... ok
+test test::create_campaign_deploys_a_campaign_that_is_ready_to_use ... ok
 test test::one_creator_can_run_several_campaigns_at_distinct_addresses ... ok
+test test::a_contribution_travels_all_the_way_into_the_factory_feed ... ok
 test test::get_campaigns_returns_one_page_of_the_registry ... ok
-test test::the_feed_rejects_activity_from_a_contract_the_factory_never_deployed ... ok
 test test::set_campaign_wasm_requires_the_admin ... ok
-test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+test test::the_feed_rejects_activity_from_a_contract_the_factory_never_deployed ... ok
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
 
 
 
@@ -79,19 +79,19 @@ $ cd frontend && npm run test:run
  ✓ src/lib/errors.test.ts > humanizeError > digs the message out of whatever shape it was thrown in 0ms
  ✓ src/lib/errors.test.ts > unwrapResult > returns the value of an Ok 0ms
  ✓ src/lib/errors.test.ts > unwrapResult > throws an Err as a message the user can act on 1ms
- ✓ src/components/CampaignCard.test.tsx > CampaignCard > shows the campaign and how far along it is 88ms
- ✓ src/components/CampaignCard.test.tsx > CampaignCard > links to the campaign contract, which is its own address 8ms
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > starts disconnected, with no signer to build a transaction with 28ms
+ ✓ src/components/CampaignCard.test.tsx > CampaignCard > shows the campaign and how far along it is 91ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > starts disconnected, with no signer to build a transaction with 26ms
+ ✓ src/components/CampaignCard.test.tsx > CampaignCard > links to the campaign contract, which is its own address 9ms
  ✓ src/components/CampaignCard.test.tsx > CampaignCard > counts down while the campaign is live 3ms
- ✓ src/components/CampaignCard.test.tsx > CampaignCard > shows backers rather than a countdown once it has closed 5ms
+ ✓ src/components/CampaignCard.test.tsx > CampaignCard > shows backers rather than a countdown once it has closed 4ms
  ✓ src/components/CampaignCard.test.tsx > CampaignCard > caps the progress bar at 100% when a campaign overfunds 8ms
  ✓ src/components/CampaignCard.test.tsx > CampaignCard > flags a missed campaign as refundable 2ms
-node.exe : stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll
- returns it
+node.exe : stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > toasts an event once even if the poll keeps r
+eturning it
 At line:1 char:1
 + & "C:\Users\PC\AppData\Local\Microsoft\WinGet\Packages\OpenJS.NodeJS. ...
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (stderr | src/co...poll returns it:String) [], RemoteException
+    + CategoryInfo          : NotSpecified: (stderr | src/co...ps returning it:String) [], RemoteException
     + FullyQualifiedErrorId : NativeCommandError
  
 An update to ActivityProvider inside a test was not wrapped in act(...).
@@ -105,221 +105,17 @@ act(() => {
 
 This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
 rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
 
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ToastProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > renders the activity the factory reported 46ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > narrows to a single campaign when asked 8ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > does not toast the events it backfills on the first poll 4ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > toasts activity that arrives after the feed is live 19ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > connects and hands out a signer 76ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > restores an existing session without prompting 5ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > surfaces a rejected connection as a sentence, not a stack trace 14ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > reports a missing extension so the UI can offer the install link 3ms
+ ✓ src/hooks/useWallet.test.tsx > WalletProvider > drops the signer on disconnect 24ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > renders the activity the factory reported 33ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > narrows to a single campaign when asked 14ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > does not toast the events it backfills on the first poll 5ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > toasts activity that arrives after the feed is live 16ms
 stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ToastProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-
-stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ToastProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > connects and hands out a signer 87ms
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > restores an existing session without prompting 4ms
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > surfaces a rejected connection as a sentence, not a stack trace 16ms
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > reports a missing extension so the UI can offer the install link 4ms
- ✓ src/hooks/useWallet.test.tsx > WalletProvider > drops the signer on disconnect 27ms
-stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ToastProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-
-stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ActivityProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
-An update to ToastProvider inside a test was not wrapped in act(...).
-
-When testing, code that causes React state updates should be wrapped into act(...):
-
-act(() => {
-  /* fire events that update state */
-});
-/* assert on the output */
-
-This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/w
-rap-tests-with-act
 An update to ActivityProvider inside a test was not wrapped in act(...).
 
 When testing, code that causes React state updates should be wrapped into act(...):
@@ -335,7 +131,7 @@ rap-tests-with-act
 stderr | src/components/ActivityFeed.test.tsx > ActivityFeed > keeps showing what it has when the network drops, and sa
 ys it is reconnecting
 activity feed poll failed Error: Failed to fetch
-    at C:/Users/PC/Downloads/stellar-prod-dapp/frontend/src/components/ActivityFeed.test.tsx:128:26
+    at C:/Users/PC/Downloads/stellar-prod-dapp/frontend/src/components/ActivityFeed.test.tsx:152:26
     at file:///C:/Users/PC/Downloads/stellar-prod-dapp/frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:302:
 11
     at file:///C:/Users/PC/Downloads/stellar-prod-dapp/frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:1903
@@ -353,14 +149,15 @@ artifact.js:2272:10)
     at file:///C:/Users/PC/Downloads/stellar-prod-dapp/frontend/node_modules/@vitest/runner/dist/chunk-artifact.js:2955
 :64
 
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it 69ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > celebrates a goal being reached 19ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > keeps showing what it has when the network drops, and says it is reconnecting 21ms
- ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > says so when a campaign has no activity yet 5ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > toasts an event once even if the poll keeps returning it 100ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > shows each event once, however often the poll returns it 67ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > celebrates a goal being reached 16ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > keeps showing what it has when the network drops, and says it is reconnecting 18ms
+ ✓ src/components/ActivityFeed.test.tsx > ActivityFeed > says so when a campaign has no activity yet 7ms
 
  Test Files  5 passed (5)
-      Tests  49 passed (49)
-   Start at  19:20:26
-   Duration  1.44s (transform 412ms, setup 810ms, import 1.10s, tests 490ms, environment 3.34s)
+      Tests  50 passed (50)
+   Start at  21:14:04
+   Duration  1.52s (transform 243ms, setup 648ms, import 1.20s, tests 561ms, environment 3.34s)
 
 
