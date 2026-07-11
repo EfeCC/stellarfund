@@ -183,12 +183,12 @@ and commits the resulting addresses.
 
 ## Testing
 
-**84 tests.** Full output: [`docs/test-output.txt`](docs/test-output.txt).
+**85 tests.** Full output: [`docs/test-output.txt`](docs/test-output.txt).
 
 | Suite | Count | Run |
 |---|---|---|
 | Contracts | 35 | `make test` |
-| Frontend | 49 | `cd frontend && npm run test:run` |
+| Frontend | 50 | `cd frontend && npm run test:run` |
 | Live testnet smoke | 3 | `cd frontend && npm run test:live` |
 
 The contract tests are worth a look. The factory's tests **deploy the real compiled campaign wasm**
@@ -272,7 +272,7 @@ scripts/        deploy.sh · bindings.sh
 | Transaction hash for contract interaction | [`83891dc9…b3b2a4`](https://stellar.expert/explorer/testnet/tx/83891dc91bc552c2b86758e4374a3e9e7b19eb30d43d3a5bc25c74b9abd3b2a4) |
 | Screenshot — mobile responsive UI | [above](#mobile) |
 | Screenshot — CI/CD pipeline running | [above](#ci) |
-| Screenshot — 3+ passing tests | [above](#tests) — 84, all named · raw output in [`docs/test-output.txt`](docs/test-output.txt) |
+| Screenshot — 3+ passing tests | [above](#tests) — 85, all named · raw output in [`docs/test-output.txt`](docs/test-output.txt) |
 | Demo video (1–2 min) | [youtu.be/Ldd2SLI9lQ0](https://youtu.be/Ldd2SLI9lQ0) |
 | Advanced smart contract development | [`contracts/`](contracts) — derived state machine, typed errors, TTL management, paged registry, admin upgrade path |
 | Inter-contract communication | three distinct paths, [above](#architecture) |
@@ -281,7 +281,7 @@ scripts/        deploy.sh · bindings.sh
 | Contract deployment workflow | [`scripts/deploy.sh`](scripts/deploy.sh) + [manual deploy workflow](.github/workflows/deploy-contracts.yml) |
 | Mobile responsive frontend | mobile-first Tailwind |
 | Error handling & loading states | [`lib/errors.ts`](frontend/src/lib/errors.ts), [`ErrorBoundary`](frontend/src/components/ErrorBoundary.tsx), skeletons |
-| Tests for contracts and frontend | 84 |
+| Tests for contracts and frontend | 85 |
 
 ## License
 
