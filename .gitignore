@@ -1,0 +1,27 @@
+# Rust's output directory
+target
+
+# Local settings
+.soroban
+.stellar
+
+# Node
+node_modules
+dist
+.vite
+coverage
+
+# Environment / secrets
+.env
+.env.local
+*.local
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel
