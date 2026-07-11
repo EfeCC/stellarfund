@@ -16,6 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  RUST_VERSION: 1.97.0
   STELLAR_CLI_VERSION: 27.0.0
 
 jobs:
@@ -33,7 +34,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Rust
-        run: rustup show
+        run: |
+          rustup toolchain install ${{ env.RUST_VERSION }} --profile minimal
+          rustup default ${{ env.RUST_VERSION }}
+          rustup target add wasm32v1-none
 
       - uses: Swatinem/rust-cache@v2
 

@@ -13,6 +13,7 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: 0
+  RUST_VERSION: 1.97.0
   # Keep in step with the soroban-sdk version in Cargo.toml.
   STELLAR_CLI_VERSION: 27.0.0
 
@@ -23,10 +24,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # rust-toolchain.toml pins the version and the wasm32v1-none target, so
-      # this installs exactly what a developer has locally.
+      # Pinned here rather than in a rust-toolchain.toml, which would also pin the
+      # *host* triple — and force a Windows developer onto the MSVC toolchain when
+      # their machine is set up for GNU.
       - name: Install Rust
-        run: rustup show
+        run: |
+          rustup toolchain install ${{ env.RUST_VERSION }} --profile minimal --component rustfmt,clippy
+          rustup default ${{ env.RUST_VERSION }}
+          rustup target add wasm32v1-none
+          rustc --version
 
       - uses: Swatinem/rust-cache@v2
 
