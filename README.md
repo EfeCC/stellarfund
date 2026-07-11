@@ -260,7 +260,7 @@ scripts/        deploy.sh · bindings.sh
 |---|---|
 | Public GitHub repository | [EfeCC/stellarfund](https://github.com/EfeCC/stellarfund) |
 | README with complete documentation | this file |
-| 10+ meaningful commits | [16 commits](https://github.com/EfeCC/stellarfund/commits/main) |
+| 10+ meaningful commits | [commit history](https://github.com/EfeCC/stellarfund/commits/main) |
 | Live demo link | *(Vercel — see the header)* |
 | Contract deployment address | [`CDHZUBWT…JT3Z57`](https://stellar.expert/explorer/testnet/contract/CDHZUBWTRT53NQKJKJCOXWKM5BITXPYYHWKLQYWQNKJMVNNXDPJT3Z57) |
 | Transaction hash for contract interaction | [`83891dc9…b3b2a4`](https://stellar.expert/explorer/testnet/tx/83891dc91bc552c2b86758e4374a3e9e7b19eb30d43d3a5bc25c74b9abd3b2a4) |
