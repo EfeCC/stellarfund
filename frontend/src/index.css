@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: oklch(17% 0.02 265);
+  --color-surface: oklch(21% 0.024 265);
+  --color-raised: oklch(25% 0.026 265);
+  --color-edge: oklch(32% 0.026 265);
+
+  --color-ink: oklch(97% 0.005 265);
+  --color-muted: oklch(72% 0.02 265);
+  --color-faint: oklch(58% 0.02 265);
+
+  --color-accent: oklch(70% 0.17 285);
+  --color-accent-strong: oklch(62% 0.2 285);
+  --color-positive: oklch(75% 0.16 155);
+  --color-warning: oklch(80% 0.15 85);
+  --color-negative: oklch(68% 0.19 20);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Contract addresses: long, monospaced, never worth wrapping mid-word. */
+.address {
+  @apply font-mono text-xs tracking-tight;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  @apply relative overflow-hidden bg-raised;
+}
+
+.skeleton::after {
+  @apply absolute inset-0;
+  content: '';
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, oklch(100% 0 0 / 7%), transparent);
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.toast-enter {
+  animation: slide-in 200ms ease-out;
+}
+
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.live-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after,
+  .toast-enter,
+  .live-dot {
+    animation: none;
+  }
+}
